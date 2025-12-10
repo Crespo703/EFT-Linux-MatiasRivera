@@ -8,7 +8,7 @@ Este proyecto corresponde al Examen Final del ramo y tiene como objetivo demostr
 
 ---
 
-## 1. Guía de Despliegue
+## 1. Guía de Despliegue.
 
 A continuación, se detallan los pasos necesarios para desplegar correctamente el proyecto desde un sistema Ubuntu limpio.  
 **El orden de ejecución de los scripts es obligatorio y no debe alterarse.**
