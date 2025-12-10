@@ -2,62 +2,43 @@
 
 **Alumno:** Matías Rivera  
 **Asignatura:** Programación y Administración de Linux  
-**Rol:** Administrador / Ingeniero de Infraestructura  
-**Entorno:** Ubuntu Linux  
+**Sistema Operativo:** Ubuntu Linux  
+
+Este proyecto corresponde al Examen Final del ramo y tiene como objetivo demostrar la automatización del despliegue, securización y respaldo de un servidor Linux utilizando scripts en Bash, sin intervención manual del administrador.
 
 ---
 
-## 1. Guía de Despliegue (Deployment Guide)
+## 1. Guía de Despliegue
 
-A continuación, se describen los pasos **obligatorios y en orden estricto** para desplegar correctamente la infraestructura del proyecto desde un sistema Ubuntu limpio.
+A continuación, se detallan los pasos necesarios para desplegar correctamente el proyecto desde un sistema Ubuntu limpio.  
+**El orden de ejecución de los scripts es obligatorio y no debe alterarse.**
 
-### 1. Clonar el repositorio
+### Paso 1: Clonar el repositorio
 ```bash
 git clone https://github.com/Crespo703/EFT-Linux-MatiasRivera.git
 cd EFT-Linux-MatiasRivera
-2. Ejecutar el script de aprovisionamiento
-Este script instala las dependencias base (Docker, UFW, Git), crea la estructura del sistema, genera el contenido web y crea el usuario administrativo.
+Paso 2: Ejecutar el aprovisionamiento del sistema
+Este script instala las dependencias necesarias, configura Docker, crea la estructura del proyecto, genera el contenido web y crea el usuario administrativo del sistema.
 
 bash
 Copiar código
 sudo bash deploy/setup.sh
-3. Ejecutar el hardening de seguridad
-Este script aplica medidas de seguridad sobre el sistema operativo, configurando el firewall y endureciendo el acceso SSH.
+Paso 3: Aplicar medidas de hardening
+Este script configura el firewall del sistema y endurece el acceso remoto configurando el servicio SSH.
 
 bash
 Copiar código
 sudo bash security/hardening.sh
-4. Ejecutar el backup del sistema
-Este script genera un respaldo comprimido del contenido web utilizando un timestamp dinámico.
+Paso 4: Ejecutar el respaldo del sistema
+Este script genera un respaldo comprimido del contenido web, utilizando un timestamp para identificar cada backup.
 
 bash
 Copiar código
 sudo bash maintenance/backup.sh
-⚠️ Importante:
-Los scripts deben ejecutarse en el orden indicado. No se permite ejecución manual de comandos fuera de los scripts.
+⚠️ Nota:
+No se permite la ejecución manual de comandos. Toda la configuración del sistema debe realizarse exclusivamente mediante los scripts proporcionados.
 
-2. Justificación de Seguridad (Hardening)
-Deshabilitar el login remoto del usuario root es una medida fundamental de seguridad en sistemas Linux, ya que este usuario posee privilegios absolutos sobre el sistema. Permitir su acceso remoto expone al servidor a ataques de fuerza bruta, comprometiendo totalmente la confidencialidad, integridad y disponibilidad del sistema. Al forzar el acceso mediante un usuario no privilegiado, se reduce significativamente la superficie de ataque y se mejora la trazabilidad de acciones administrativas.
+2. Justificación de Seguridad
+Deshabilitar el inicio de sesión remoto del usuario root es una práctica fundamental en la administración segura de sistemas Linux. El usuario root posee privilegios totales sobre el sistema, por lo que permitir su acceso directo mediante SSH expone al servidor a ataques de fuerza bruta, comprometiendo completamente la seguridad del entorno. Al restringir este acceso y operar mediante un usuario administrativo sin privilegios elevados por defecto, se mejora la trazabilidad de las acciones realizadas y se reduce significativamente el impacto de un posible ataque.
 
-El filtrado de puertos mediante un firewall (UFW) responde al principio de mínima exposición. Mantener abiertos solo los puertos estrictamente necesarios (SSH y el servicio web) evita accesos no autorizados a servicios internos, reduce la posibilidad de explotación de vulnerabilidades y limita el movimiento lateral de un atacante dentro del sistema. Estas prácticas están alineadas con los principios de la Unidad VI y con estándares básicos de hardening utilizados en entornos productivos reales.
-
-3. Registro de Evidencias
-Las siguientes evidencias certifican la correcta ejecución de cada módulo del proyecto:
-
-Aprovisionamiento de Infraestructura
-Estructura creada en /opt/webapp
-
-Contenido web generado correctamente
-
-Usuario administrativo creado y configurado
-
-Hardening de Seguridad
-Firewall activo con puertos controlados
-
-Acceso root deshabilitado por SSH
-
-Respaldo del Sistema
-Backup automático generado con timestamp
-
-Conclusión
-El proyecto demuestra la capacidad de automatizar la provisión, securización y respaldo de un entorno Linux utilizando scripting en Bash, sin intervención manual, cumpliendo con criterios de reproducibilidad, seguridad y buenas prácticas de administración de sistemas.
+El filtrado de puertos a través de un firewall responde al principio de mínima exposición de servicios. Mantener abiertos únicamente los puertos estrictamente necesarios, como SSH y el puerto del servicio web, disminuye la superficie de ataque del sistema y evita accesos no autorizados a servicios internos. Estas medidas permiten proteger la confidencialidad, integridad y disponibilidad del servidor, alineándose con los conceptos de hardening y seguridad defensiva abordados en la Unidad VI del curso.
